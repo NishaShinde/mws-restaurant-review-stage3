@@ -1,6 +1,6 @@
 let restaurant;
 var newMap;
-let isFavorite = false;
+
 
 /**
  * Initialize map as soon as the page is loaded.
@@ -97,8 +97,13 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     //TODO: Toggle favorite button onclick
   
   const favorite_icon = document.getElementById('favorite_icon');
-  console.log("is_favorite : "+restaurant.is_favorite);
-  if(restaurant.is_favorite){
+
+  var isFavorite =  Boolean(restaurant.is_favorite); 
+  
+  console.log(typeof isFavorite);
+  console.log("isFavorite : "+isFavorite);
+
+  if(isFavorite){
     favorite_icon.src = "/img/filled_heart.png";
   }else{
     favorite_icon.src = "/img/empty_heart.png";
@@ -106,14 +111,18 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   favorite_icon.addEventListener("click",function(){
    
-    isFavorite = !restaurant.is_favorite;
+    var isFavorite =  Boolean(restaurant.is_favorite); 
+    isFavorite = !isFavorite;
     console.log("fav button clicked "+isFavorite);
+    console.log("checking type of isFavorite")
+    console.log(typeof isFavorite);
+
     if(isFavorite){
       favorite_icon.src = "/img/filled_heart.png";
       favorite_icon.alt = "Marked as a favorite restaurant";
       //Update to the server using PUT request
       DBHelper.updateFavoriteStatus(restaurant.id, isFavorite);
-      restaurant.is_favorite = !restaurant.is_favorite;
+      
 
       //isFavorite = true;
     }else{

@@ -317,8 +317,8 @@ class DBHelper {
 
   static updateFavoriteStatus(restaurant_id, isFavorite){
     console.log("changing fav status on server");
-  
-    fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${isFavorite}`,{
+    var isFavoriteString = isFavorite.toString(); 
+    fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${isFavoriteString}`,{
       method : 'PUT'
     }).then(()=>{
       console.log("yay! changed fav on server");
@@ -328,8 +328,13 @@ class DBHelper {
       var tx = db.transaction(restaurantObjectStoreName, 'readwrite');
       var store = tx.objectStore(restaurantObjectStoreName);
       console.log("opening the objectstore");
+   
        store.get(restaurant_id).then(restaurant=>{
-       restaurant.is_favorite = isFavorite;
+       restaurant.is_favorite = isFavoriteString;
+       console.log("update server check type of is_favorite "+ restaurant.is_favorite);
+       console.log(typeof restaurant.is_favorite);
+       console.log("isFavorite "+isFavorite);
+
        store.put(restaurant);
        console.log("putting updated restaurant in objectstore");
 
