@@ -318,6 +318,7 @@ class DBHelper {
   static updateFavoriteStatus(restaurant_id, isFavorite){
     console.log("changing fav status on server");
     var isFavoriteString = isFavorite.toString(); 
+
     fetch(`http://localhost:1337/restaurants/${restaurant_id}/?is_favorite=${isFavoriteString}`,{
       method : 'PUT'
     }).then(()=>{
@@ -329,6 +330,7 @@ class DBHelper {
       var store = tx.objectStore(restaurantObjectStoreName);
       console.log("opening the objectstore");
    
+      
        store.get(restaurant_id).then(restaurant=>{
        restaurant.is_favorite = isFavoriteString;
        console.log("update server check type of is_favorite "+ restaurant.is_favorite);

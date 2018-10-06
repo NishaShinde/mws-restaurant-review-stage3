@@ -117,6 +117,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     console.log("checking type of isFavorite")
     console.log(typeof isFavorite);
 
+    
     if(isFavorite){
       favorite_icon.src = "/img/filled_heart.png";
       favorite_icon.alt = "Marked as a favorite restaurant";
